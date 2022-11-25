@@ -17,6 +17,11 @@ This tool is close in spirit to Component Governance and Dependency scanner appl
 # Mark a Component and Specify its Source
 🚧 TODO - Document how to write component manifests
 
+Components are identified via special files placed next to them.
+This tool supports multiple different file types to be flexible and compatible with other workflow related tools.
+
+The canonical file format of this tool is a: ['ComponentSource.json Manifest'](doc/ComponentSourceManifest.md)
+
 
 # Scan for Component Source Updates
 🚧 TODO - Document scan app usage
