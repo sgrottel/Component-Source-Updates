@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\VersionInfo.proj" />
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>ComponentSourceUpdate.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>ComponentSourceUpdate.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <ApplicationIcon>..\images\Component-Source-Updates.ico</ApplicationIcon>
+    <Title>Component Source Update - Manifest Editor</Title>
+    <Description>Interactive Editor for Component Source Manifest Files</Description>
+  </PropertyGroup>
+
+</Project>

@@ -1,1 +1,5 @@
 ﻿.vs
+ManifestEditor/bin
+ManifestEditor/obj
+desktop.ini
+ManifestEditor/ManifestEditor.csproj.user

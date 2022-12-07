@@ -22,6 +22,9 @@ This tool supports multiple different file types to be flexible and compatible w
 
 The canonical file format of this tool is a: ['ComponentSource.json Manifest'](doc/ComponentSourceManifest.md)
 
+You can use the [ManifestEditor](./ManifestEditor) as editing UI for those manifest files.
+🚧 TODO - Document editor app features
+
 
 # Scan for Component Source Updates
 🚧 TODO - Document scan app usage
