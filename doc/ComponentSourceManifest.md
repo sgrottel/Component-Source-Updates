@@ -17,7 +17,7 @@ This is an example content:
 				{
 					"type": "git",
 					"url": "https://github.com/sgrottel/Component-Source-Updates.git",
-					"hash": "0123456789abcdef",
+					"hash": "0123456789abcdef0123456789abcdef01234567",
 					"version": "0.1",
 					"selection": "github releases"
 				}
@@ -27,81 +27,46 @@ This is an example content:
 }
 ```
 
+Consult the description properties in the [Schema](./ComponentSource.Schema.json) for details.
 
-## `_type` (required)
-Must specify `"ComponentSourceManifest"` (string) as value.
+## Enable Schema in Visual Studio Code
+You can either explicitly specify the schema url in your ComponentSource manifest json file (not recommended), or you can configure Visual Studio Code to associate all `ComponentSource.json` manifest files with the schema (recommended).
+
+Edit `settings.json` for the user and add or edit:
+```json
+"json.schema": [
+	{
+		"fileMatch": [
+			"/ComponentSource.json"
+		],
+		"url": "https://go.grottel.net/ComponentSource/schema.json"
+	}
+]
+```
 
 
-## `_version` (recommended)
-The value is an integer defining the version of the file format.
+## Details on the Schema properties
 
-If missing, the value `1` (int) is assumed.
-
-
-## `components` (required)
+### Property `/components`
 This is the array of objects describing the state and sources of the components listed in this manifest.
 
 You can either have one manifest per component, or one manifest per project, or even only one manifest per machine.
 If, during a scan, multiple manifest component entries are found, that link to the same target path, the file closest to that path, i.e. minimum number of directory levels as distance, gets priority.
 
-
-## Component `name` (required)
-A uniquely identifier name of the component.
-
-A human-readable form is recommended.
-
-The component should always be named consistently.
-
-
-## Component `path` (optional)
-The file system path where the component resides.
-
-If missing, the value `"."` (string) is assumed, pointing to the local path where the json file is stored.
-
-
-## Component `source` (required)
+### Property `/components/source`
 This is the array of source description objects of the component.
 The order of the objects in the array defines the priority from high/top of list to low/bottom of the list.
 At least one entry is required.
 
-Each source description object must specify the `type` field.
-
-
-## Source Type `Git`
-Use this source description to target a git repository as source of the component.
-
-```json
-{
-	"type": "git",
-	"url": "https://github.com/sgrottel/Component-Source-Updates.git",
-	"hash": "0123456789abcdef",
-	"version": "0.1",
-	"selection": "github releases"
-}
-```
-
-### `type` (required)
-Value must be `"git"` (string).
-
-Lower case recommended.
-
-### `url` (required)
-The Url to the git repository.
-
-### `hash` (required)
-Specifies the full commit hash of the current state of the component.
-
-Do not use a short commit hash variant.
-
-### `version` (optional)
-If the current state of the component relates to a released version, this field can be used to specify the respective version number.
-
-### `selection` (optional)
+### Property `/components/source[type=git]/selection`
 This field allows to select a subset of the git repository.
 Newer commits in the repository but outside of the selection will not be considered component updates.
 
 Supported Values:
 
+* `"none"` (string) -- The whole git repository will be included in the search for updates (no subset).
 * `"github releases"` (string) -- The git repository is assumed to be hosted at [github.com](https://github.com), and is assumed to use github's releases feature.
-Only releases referencing a commit are selected.
-
+  Only commits references by releases are selected.
+  Specified `version` values relate to release titles.
+* `"tags"` (string) -- Only tagged git commits will be included in the search for updates.
+  Specified `version` values relate to tag names.

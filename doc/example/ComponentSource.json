@@ -4,12 +4,12 @@
 	"_version": 1,
 	"components": [
 		{
-			"name": "Component Source Update Example",
-			"path": ".",
+			"name": "Component Source Updates",
+			"path": "../..",
 			"source": [
 				{
 					"type": "git",
-					"url": "https://github.com/sgrottel/Component-Source-Updates",
+					"url": "https://github.com/sgrottel/Component-Source-Updates.git",
 					"hash": "1ff6c70f1050cd880fff9c424f36d5d8bd45ebda"
 				}
 			]
