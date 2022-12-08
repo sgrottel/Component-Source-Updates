@@ -1,0 +1,18 @@
+{
+	"$schema": "../ComponentSource.Schema.json",
+	"_type": "ComponentSourceManifest",
+	"_version": 1,
+	"components": [
+		{
+			"name": "Component Source Update Example",
+			"path": ".",
+			"source": [
+				{
+					"type": "git",
+					"url": "https://github.com/sgrottel/Component-Source-Updates",
+					"hash": "1ff6c70f1050cd880fff9c424f36d5d8bd45ebda"
+				}
+			]
+		}
+	]
+}

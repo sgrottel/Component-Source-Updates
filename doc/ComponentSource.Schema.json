@@ -1,0 +1,104 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://go.grottel.net/ComponentSource/schema.json?h=true",
+	"title": "ComponentSource Manifest File Schema",
+	"description": "Schema for ComponentSource Manifest json files",
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"description": "Allow for explicit referencing of this schema",
+			"type": "string"
+		},
+		"_type": {
+			"description": "File type identifier",
+			"type": "string",
+			"const": "ComponentSourceManifest"
+		},
+		"_version": {
+			"description": "Optional file format version",
+			"type": "integer",
+			"enum": [
+				1
+			]
+		},
+		"components": {
+			"description": "The components defined by this file",
+			"type": "array",
+			"uniqueItems": true,
+			"items": {
+				"description": "One component defining it's state and source",
+				"type": "object",
+				"properties": {
+					"name": {
+						"description": "Name identifier of the component. This should be globally consistent and human readable.",
+						"type": "string",
+						"minLength": 1
+					},
+					"path": {
+						"description": "Local file system path to the local component copy, assume relative to this json file",
+						"type": "string",
+						"default": "."
+					},
+					"source": {
+						"description": "The description of the remote source of this component. This is a sorted array, with the remote sources ordered by priority, from high to low.",
+						"type": "array",
+						"uniqueItems": true,
+						"minItems": 1,
+						"items": {
+							"oneOf": [
+								{
+									"description": "A git component source",
+									"type": "object",
+									"properties": {
+										"type": {
+											"description": "Git source identifier",
+											"type": "string",
+											"const": "git"
+										},
+										"url": {
+											"description": "The git repository url",
+											"type": "string",
+											"minLength": 1
+										},
+										"hash": {
+											"description": "The full git hash of the version of the local copy. Do not use the short hash variant.",
+											"type": "string",
+											"pattern": "^[0-9a-fA-F]{40}$"
+										},
+										"version": {
+											"description": "An optional version to match tags or release titles. See `subset` for details",
+											"type": "string"
+										},
+										"subset": {
+											"description": "Limit to update check to a subset of the git repository",
+											"type": "string",
+											"enum": [
+												null,
+												"none",
+												"github releases",
+												"tags"
+											]
+										}
+									},
+									"required": [
+										"type",
+										"url",
+										"hash"
+									]
+								}
+							]
+						}
+					}
+				},
+				"required": [
+					"name",
+					"path"
+				]
+			}
+		}
+	},
+	"required": [
+		"_type",
+		"components"
+	]
+}
