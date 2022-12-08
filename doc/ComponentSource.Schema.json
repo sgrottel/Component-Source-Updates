@@ -92,7 +92,7 @@
 				},
 				"required": [
 					"name",
-					"path"
+					"source"
 				]
 			}
 		}
